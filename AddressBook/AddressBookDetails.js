@@ -27,55 +27,106 @@ class Person
     //method to return everything in string
     toString()
     {
-        return `First Name: ${this.firstName}\nLast Name: ${this.lastName}\nAddress: ${this.address}\nCity: ${this.city}\nState: ${this.state}\nZipCode: ${this.zipCode}\nPhone Number: ${this.phoneNumber}\nEmail-Id: ${this.emailId}`;
+        return `First Name: ${this.firstName}\nLast Name: ${this.lastName}\nAddress: ${this.address}\nCity: ${this.city}\nState: ${this.state}\nZipCode: ${this.zipCode}\nPhone Number: ${this.phoneNumber}\nEmail-Id: ${this.emailId}\n************`;
     }
 }
-try
+var addressBookPersonArr = new Array();
+let ValidateAndAdd = () =>
 {
-    //regex patterns
-    let namePattern = new RegExp('^[A-Z]{1}[a-z]{2,}$');
-    let addresspattern = new RegExp('^[A-za-z\\s]{4,}$');
-    let emailPattern = new RegExp('^[a-z]([+. \-_]{1}\w+)?@[a-z0-9]+\.[a-z]{2,3}(\.[a-z]{2})?$');
-    let phoneNumPattern =new RegExp('^[0-9]\\s[0-9]{10}$');
-    let zipCodePattern = new RegExp('^[1-9]{1}[0-9]{2}\\s?[0-9]{3}$');
-    //FirstName
-    let firstName = prompt('Enter FirstName: ');
-    if(!namePattern.test(firstName))
-        throw 'Error!! First name is in Incorrect Format';
-    //LastName
-    let lastName = prompt('Enter lastName: ');
-    if(!namePattern.test(lastName))
-        throw 'Error!! Last name is in Incorrect Format';
-    //Address
-    let address = prompt('Enter Address: ');
-    if(!addresspattern.test(address))
-        throw 'Error!! Address should have minimum 4 characters';
-    //city
-    let city = prompt('Enter city: ');
-    if(!addresspattern.test(city))
-        throw 'Error!! City should have minimum 4 characters';
-    //state
-    let state = prompt('Enter state: ');
-    if(!addresspattern.test(state))
-        throw 'Error!! State should have minimum 4 characters';
-    //zipCode
-    let zipCode = prompt('Enter Zip Code: ');
-    if(!zipCodePattern.test(zipCode))
-        throw 'Error!! ZipCode is not valid';
-    //phone number
-    let phoneNumber = prompt('Enter Phone Number: ');
-    if(phoneNumPattern.test(phoneNumber))
-        throw 'Error!! PhoneNumber is not valid';
-    //email id
-    let emailId = prompt('Enter Email Id: ');
-    if(emailPattern.test(emailId))
-        throw 'Error!! Email Id is not valid';
-    //Object for class
-    let person = new Person(firstName,lastName,address,city,state,zipCode,phoneNumber,emailId);
-    console.log("************************Deatils******************");
-    console.log(person.toString());
+    try
+    {
+        //regex patterns
+        let namePattern = new RegExp('^[A-Z]{1}[a-z]{2,}$');
+        let addresspattern = new RegExp('^[A-za-z\\s]{4,}$');
+        let emailPattern = new RegExp('^[a-z]([+. \-_]{1}\w+)?@[a-z0-9]+\.[a-z]{2,3}(\.[a-z]{2})?$');
+        let phoneNumPattern =new RegExp('^[0-9]\\s[0-9]{10}$');
+        let zipCodePattern = new RegExp('^[1-9]{1}[0-9]{2}\\s?[0-9]{3}$');
+        //FirstName
+        let firstName = prompt('Enter FirstName: ');
+        if(!namePattern.test(firstName))
+            throw 'Error!! First name is in Incorrect Format';
+        //LastName
+        let lastName = prompt('Enter lastName: ');
+        if(!namePattern.test(lastName))
+            throw 'Error!! Last name is in Incorrect Format';
+        //Address
+        let address = prompt('Enter Address: ');
+        if(!addresspattern.test(address))
+            throw 'Error!! Address should have minimum 4 characters';
+        //city
+        let city = prompt('Enter city: ');
+        if(!addresspattern.test(city))
+            throw 'Error!! City should have minimum 4 characters';
+        //state
+        let state = prompt('Enter state: ');
+        if(!addresspattern.test(state))
+            throw 'Error!! State should have minimum 4 characters';
+        //zipCode
+        let zipCode = prompt('Enter Zip Code: ');
+        if(!zipCodePattern.test(zipCode))
+            throw 'Error!! ZipCode is not valid';
+        //phone number
+        let phoneNumber = prompt('Enter Phone Number: ');
+        if(phoneNumPattern.test(phoneNumber))
+            throw 'Error!! PhoneNumber is not valid';
+        //email id
+        let emailId = prompt('Enter Email Id: ');
+        if(emailPattern.test(emailId))
+            throw 'Error!! Email Id is not valid';
+        //-----------------------------------------------------------------------------------------------------
+        //Object for class
+        let person = new Person(firstName,lastName,address,city,state,zipCode,phoneNumber,emailId);
+        return person;    
+    }
+    catch(e)
+    {
+        console.error(e);
+    }
+       
 }
-catch(e)
+let AddContacts = () =>
 {
-    console.error(e);
+    let numOfPersons = parseInt(prompt('Enter Number of contacts you want to add? : '));
+    while(numOfPersons--)
+    {
+        let person = ValidateAndAdd();
+        addressBookPersonArr.push(person);
+        console.log("***********************");
+    }
 }
+let DisplayContacts = () =>
+{
+    console.log("********************AddressBook*******************");
+   addressBookPersonArr.forEach(x => console.log(x.toString())); 
+}
+let AddressBookOperations = () =>
+{
+    try
+    {
+        while(true)
+        {
+            console.log("************************\n1.Add new contacts to addressbook\n2.Display\n3.exit");
+            switch(parseInt(prompt('Enter the choice? : ')))
+            {
+                case 1:
+                    AddContacts();
+                    break;
+                case 2:
+                    DisplayContacts();
+                    break;
+                case 3:
+                    console.log("Exited");
+                    return;
+                default:
+                    console.log("Enter Valid Option");
+                    break;
+            }
+        }
+    }
+    catch(e)
+    {
+        console.error(e);
+    }   
+        
+}
+AddressBookOperations();

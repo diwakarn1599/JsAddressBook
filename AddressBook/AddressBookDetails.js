@@ -340,7 +340,7 @@ let EditContacts = () =>
             }
         }
         else
-            throw 'Address book is empty'
+            throw 'Address book is empty';
         
     }
     catch(e)
@@ -349,13 +349,40 @@ let EditContacts = () =>
     }
     
 }
+////////--------------------------------------------------DELETE----------------------------------///////////////////////////////
+let deleteContacts = () =>
+{
+    try
+    {
+        if(addressBookPersonArr.length>0)
+        {
+            while(true)
+            {
+                var deletePersonName = getName('First name of person you want to Delete');
+                if(deletePersonName!=null)
+                    break;
+            }
+            //find index of person name
+            const index = addressBookPersonArr.indexOf(deletePersonName);
+            //using splice remove the element
+            addressBookPersonArr.splice(index,1);
+            console.log("***************Deleted******************");
+        }
+        else
+            throw "AddressBook Is empty";
+    }
+    catch(e)
+    {
+        console.error(e);
+    }
+}
 let AddressBookOperations = () =>
 {
     try
     {
         while(true)
         {
-            console.log("************************\n1.Add new contacts to addressbook\n2.Display\n3.Edit Contacts\n4.Exit");
+            console.log("************************\n1.Add new contacts to addressbook\n2.Display\n3.Edit Contacts\n4.Delete\n5.Exit");
             switch(parseInt(prompt('Enter the choice? : ')))
             {
                 case 1:
@@ -368,6 +395,9 @@ let AddressBookOperations = () =>
                     EditContacts();
                     break;
                 case 4:
+                    deleteContacts();
+                    break;
+                case 5:
                     console.log("Exited");
                     return;
                 default:

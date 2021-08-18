@@ -27,7 +27,7 @@ class Person
     //method to return everything in string
     toString()
     {
-        return `First Name: ${this.firstName}\nLast Name: ${this.lastName}\nAddress: ${this.address}\nCity: ${this.city}\nState: ${this.state}\nZipCode: ${this.zipCode}\nPhone Number: ${this.phoneNumber}\nEmail-Id: ${this.emailId}\n************`;
+        return `**********\nFirst Name: ${this.firstName}\nLast Name: ${this.lastName}\nAddress: ${this.address}\nCity: ${this.city}\nState: ${this.state}\nZipCode: ${this.zipCode}\nPhone Number: ${this.phoneNumber}\nEmail-Id: ${this.emailId}\n************`;
     }
 }
 //Array to store objects
@@ -242,7 +242,7 @@ let EditContacts = () =>
                 throw `Error!This ${editPersonName} name is not present`;
             while(true)
             {
-                console.log("1.Edit Firstname\n2.Edit Lastname\n3.Edit Address\n4.Edit city\n5.Edit State\n6.Zipcode\n7.Phone number\n8.email id\n9.Exit");
+                console.log("1.Edit Firstname\n2.Edit Lastname\n3.Edit Address\n4.Edit city\n5.Edit State\n6.Edit Zipcode\n7.Edit Phone number\n8.Edit email id\n9.Exit");
                 switch(parseInt(prompt('Enter the choice? : ')))
                 {
                     case 1:
@@ -467,13 +467,67 @@ let SearchContacts = () =>
     }
     
 }
+//----------------------------------------------------Uc9-ViewByCityOrState----------------------------
+let ViewByCityOrState = () =>
+{
+    try
+    {
+        while(true)
+        {
+            console.log("**************\n1.ViewByCity\n2.ViewByState\n3.Exit");
+            switch(parseInt(prompt('Enter the choice? : ')))
+            {
+                case 1:
+                    //city
+                    while(true)
+                    {
+                        var cityName = getAddressDetails('city Name');
+                        if(cityName!=null)
+                            break;
+                    }
+                   
+                    //using filter and map view details by city name
+                    addressBookPersonArr.filter(
+                        (x)=>x.city ==cityName
+                    ).map(
+                        (i) => console.log(i.toString()) 
+                    );
+                    break;
+                case 2:
+                    //state
+                    while(true)
+                    {
+                        var stateName = getAddressDetails('state');
+                        if(stateName!=null)
+                            break;
+                    }
+                    
+                    //using filter and map View details by city name
+                    addressBookPersonArr.filter(
+                        (x)=>x.state ==stateName
+                    ).map(
+                        (i) => console.log(i.toString()) 
+                    );
+                    break;
+                case 3:
+                    console.log("Exit from search");
+                    return;
+
+            }
+        }
+    }
+    catch(e)
+    {
+        console.error(e);
+    }
+}
 let AddressBookOperations = () =>
 {
     try
     {
         while(true)
         {
-            console.log("************************\n1.Add new contacts to addressbook\n2.Display\n3.Edit Contacts\n4.Delete\n5.count Contacts\n6.Search Contacts\n7.Exit");
+            console.log("************************\n1.Add new contacts to addressbook\n2.Display\n3.Edit Contacts\n4.Delete\n5.count Contacts\n6.Search Contacts\n7.View By city or state\n8.Exit");
             switch(parseInt(prompt('Enter the choice? : ')))
             {
                 case 1:
@@ -495,6 +549,9 @@ let AddressBookOperations = () =>
                     SearchContacts();
                     break;
                 case 7:
+                    ViewByCityOrState();
+                    break;
+                case 8:
                     console.log("Exited");
                     return;
                 default:
